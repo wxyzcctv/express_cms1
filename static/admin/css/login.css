@@ -26,6 +26,9 @@ body {
 	float:left;
 	font-size:15px;
 }
+#login dl .verify-tip{
+    color: red;
+}
 #login dl dd {
 	margin:10px 0;
 	height:36px;

@@ -10,17 +10,18 @@
 <body>
     <div class="container">
         <div id="login">
-            <form action="/yuqing/admin.php?m=Public&amp;a=login" method="post" id="myform">
+            <form action="/admin/login/doLogin" method="post" id="myform">
                 <input type="hidden" name="ajaxlogin" id="ajaxlogin">
                 <input type="hidden" name="ajaxcode" id="ajaxcode">
                 <div class="l_title">CMS后台管理系统-GreatLake</div>
                 <dl>
-                    <dd>管理员姓名：<input class="text" type="text" name="username" id="username"></dd>
-                    <dd>管理员密码：<input class="text" type="password" name="password" id="password"></dd>
+                    <dd>管理员姓名：<input class="text" type="text" name="username" id="username" value="<%=username%>"></dd>
+                    <dd>管理员密码：<input class="text" type="password" name="password" id="password"  value="<%=password%>"></dd>
                     <dd>验　证　码：<input id="verify" type="text" name="verify">
                         <img id="verify_img" src="/admin/login/verify" title="看不清？点击刷新"
                             onclick="javascript:this.src='/admin/login/verify?mt='+Math.random()">
                     </dd>
+                    <span class="verify-tip"><%=verifyTip%></span>
                     <dd><input type="submit" class="submit" name="dosubmit" value=""></dd>
                 </dl>
             </form>
