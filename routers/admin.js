@@ -1,5 +1,21 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+const url = require('url')
+
+// admin界面跳转是实现权限校验
+router.use((req,res,next)=>{
+    let pathName = url.parse(req.url).pathname;    
+    let dontRedictPath = ['/login','/login/verify','/login/doLogin']; // 不需要校验的路由界面
+    if (req.session.userinfor && req.session.userinfor.username) {        
+        next();
+    }else{
+        if (dontRedictPath.includes(pathName)) {
+            next();
+        }else{
+            res.redirect('/admin/login')
+        }
+    }
+})
 
 //引入模块
 const nav = require('./admin/nav');
