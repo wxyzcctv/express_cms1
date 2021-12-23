@@ -79,3 +79,21 @@ input[type=file]{
 .navbar{
 	border-radius: 0px;
 }
+
+.input-form li{
+    padding: 5px 0px;
+ }
+ .input-form li span{
+     width: 100px;
+     display: inline-block;
+     text-align: right;
+ }
+ 
+ .input-form li input[type="text"],.input-form li input[type="password"]{
+     width: 300px;
+ }
+ 
+ .error{
+     color: red;
+     padding-left: 70px;
+ }

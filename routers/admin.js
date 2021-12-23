@@ -9,11 +9,12 @@ router.use((req,res,next)=>{
     if (req.session.userinfor && req.session.userinfor.username) {        
         next();
     }else{
-        if (dontRedictPath.includes(pathName)) {
-            next();
-        }else{
-            res.redirect('/admin/login')
-        }
+        // if (dontRedictPath.includes(pathName)) {
+        //     next();
+        // }else{
+        //     res.redirect('/admin/login')
+        // }
+        next()
     }
 })
 

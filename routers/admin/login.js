@@ -74,4 +74,10 @@ router.get('/verify', function (req, res) {
     res.status(200).send(captcha.data);
 });
 
+// 退出请求
+router.get('/logOut',(req,res)=>{
+    req.session.userinfor = null;
+    res.redirect('/admin/login')
+})
+
 module.exports = router
