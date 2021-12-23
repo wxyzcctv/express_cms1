@@ -2,19 +2,17 @@ const express = require('express')
 const router = express.Router();
 
 //引入模块
-const login = require('./admin/login');
-const manager = require('./admin/manager');
 const nav = require('./admin/nav');
 const user = require('./admin/user');
-
-router.get('/',(req,res)=>{
-    res.send('后台管理中心')
-})
+const main = require('./admin/main');
+const login = require('./admin/login');
+const manager = require('./admin/manager');
 
 //挂载路由
-router.use('/login',login);
-router.use('/manager',manager);
+router.use('/',main);
 router.use('/nav',nav);
 router.use('/user',user);
+router.use('/login',login);
+router.use('/manager',manager);
 
 module.exports = router;
