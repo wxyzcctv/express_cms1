@@ -38,12 +38,12 @@
                 <td><%= userList[i].username %></td>
                 <td><%= userList[i].mobile %></td>
                 <td><%= userList[i].email %></td>
-                <td>
-                    <% if(userList[i].status) {%>
-                        <img src="/admin/images/yes.gif" />
-                    <% } else { %>
-                        <img src="/admin/images/no.gif" />
-                    <% } %>  
+                <td>                    
+                    <% if(userList[i].status==1){ %>
+                        <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Focus" data-field="status" />
+                    <%}else{%>
+                        <img src="/admin/images/no.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Focus" data-field="status" />
+                    <%}%>  
                 </td>
                 <td class="text-center"><a href="/admin/manager/edit?id=<%=userList[i]._id%>">修改</a>　　<a  class="delete" href="/admin/manager/delete?id=<%=userList[i]._id%>">删除</a></td>
             </tr>
