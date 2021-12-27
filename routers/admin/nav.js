@@ -1,34 +1,73 @@
 const express = require('express');
 const router = express.Router();
+const url = require('url')
 const NavModel = require('../../model/navModel');
-const tools = require("../../model/tools");
+const { getUnix } = require("../../model/tools");
 
-router.get('/',(req,res)=>{
-    res.send("导航列表")
+router.get('/', async (req,res)=>{
+    let navList = await NavModel.find({});
+    res.render("admin/nav/index.html",{
+        navList
+    })
 })
 
-router.get('/add',async (req,res)=>{
-    let nav = new NavModel({
-        title: '百度',
-        url: 'www.baidu.com'
-    });
-    await nav.save();
-    res.send('添加导航成功')
+router.get('/add', (req,res)=>{
+    res.render('admin/nav/add.html')
 })
 
-router.get('/edit',(req,res)=>{
-    res.send('修改导航栏')
+router.post("/doAdd", async (req, res) => {
+    // 将获取的表单提交数据直接存入数据库中
+    try {        
+        var result = new NavModel(Object.assign(req.body, { add_time: getUnix() }))
+        await result.save()
+        res.render("admin/public/success.html", {
+            "redirectUrl": "/admin/nav",
+            "message": "增加导航成功"
+        })
+    } catch (error) {
+        res.render("admin/public/error.html", {
+            "redirectUrl": "/admin/nav/add",
+            "message": "增加导航失败"
+        })
+    }    
 })
 
-router.post("/doAdd",tools.multer().single("pic"), (req, res) => {
-    //获取表单传过来的数据    
-    res.send({
-        body: req.body,
-        file: req.file
-    });
-})
-router.post("/doEdit", (req, res) => {
-    res.send("执行修改")
+router.get('/edit', async (req,res)=>{
+    let id = req.query.id;
+    let result = await NavModel.find({"_id":id});
+    res.render('admin/nav/edit.html',{
+        nav: result[0]
+    })
 })
 
+router.post("/doEdit", async (req, res) => {
+    try {
+        let result = await NavModel.updateOne({"_id": req.body.id},req.body)
+        res.render("admin/public/success.html", {
+            "redirectUrl": "/admin/nav",
+            "message": "修改导航成功"
+        })
+    } catch (error) {
+        res.render("admin/public/error.html", {
+            "redirectUrl": "/admin/nav/add",
+            "message": "修改导航失败"
+        })
+    }
+})
+
+router.get('/delete', async (req,res)=>{
+    let id = req.query.id;
+    let result = await NavModel.deleteOne({"_id":id});
+    if (result.ok) {
+        res.render('admin/public/success.html', {
+            message: "删除成功",
+            redirectUrl: '/admin/nav/'
+        })        
+    } else {
+        res.render('admin/public/error.html', {
+            message: "删除失败",
+            redirectUrl: '/admin/nav/'
+        })
+    }
+})
 module.exports = router

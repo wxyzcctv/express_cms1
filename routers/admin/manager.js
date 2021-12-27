@@ -138,12 +138,12 @@ router.get('/delete', async (req,res)=>{
     let result = await ManagerModel.deleteOne({"_id":id});
     if (result.ok) {
         res.render('admin/public/success.html', {
-            message: "删除数据成功",
+            message: "删除成功",
             redirectUrl: '/admin/manager/'
         })        
     } else {
         res.render('admin/public/error.html', {
-            message: "删除数据失败",
+            message: "删除失败",
             redirectUrl: '/admin/manager/'
         })
     }
