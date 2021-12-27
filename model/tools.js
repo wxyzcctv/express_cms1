@@ -14,7 +14,7 @@ let tools = {
                 // static/upload/20200703
                 let dir=path.join("static/upload",day)
                 //2、按照日期生成图片存储目录  mkdirp是一个异步方法
-                await mkdirp(dir)   
+                await mkdirp(dir)
                 
                 cb(null, dir) //上传之前目录必须存在
             },

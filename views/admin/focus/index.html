@@ -1,0 +1,76 @@
+<%- include ("../public/page_header.html")%>  
+
+<!-- 因为数量比较少，暂时不进行搜索 -->
+<!-- <div class="panel panel-default">
+    <div class="panel-heading">
+        搜索
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-inline">
+            <div class="form-group">
+                <label for="name">名称</label>
+                <input type="text" class="form-control" id="name" placeholder="请输入名称">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">开始搜索</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+<!-- 列表展示 -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="th">
+                <th>名称</th>
+                <th>分类</th>
+                <th>图片</th>
+                <th>跳转地址</th>
+                <th class="text-center">排序</th>
+                <th class="text-center">状态</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% for(var i=0;i<focusList.length;i++){ %>
+                <tr>
+                    <td><%=focusList[i].title%></td>
+                    <td>
+                        <%if(focusList[i].type==1){%>
+                            网站
+                        <%}else if(focusList[i].type==2){%>
+                            app
+                        <%}else if(focusList[i].type==3){%>
+                            小程序
+                        <%}else{%>
+
+                        <%}%>
+                    </td>
+                    <td>
+                        <%if(focusList[i].focus_img){%>
+                            <img src="/<%=focusList[i].focus_img%>" width="80" />                      
+                        <%}%>   
+                    </td>
+                    <td><%=focusList[i].link%></td>
+                    <td class="text-center"><%=focusList[i].sort%></span></td>
+                    <td class="text-center">
+                        <% if(focusList[i].status==1){ %>
+                            <img src="/admin/images/yes.gif" />
+                        <%}else{%>
+                            <img src="/admin/images/no.gif" />
+                        <%}%>
+                    </td>
+                    <td class="text-center">
+                        <a href="/admin/focus/edit?id=<%=focusList[i]._id%>">修改</a>
+                        <a class="delete" href="/admin/focus/delete?id=<%=focusList[i]._id%>">删除</a>
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

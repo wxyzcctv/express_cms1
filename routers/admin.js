@@ -23,6 +23,7 @@ const nav = require('./admin/nav');
 const user = require('./admin/user');
 const main = require('./admin/main');
 const login = require('./admin/login');
+const focus = require('./admin/focus');
 const manager = require('./admin/manager');
 
 //挂载路由
@@ -30,6 +31,7 @@ router.use('/',main);
 router.use('/nav',nav);
 router.use('/user',user);
 router.use('/login',login);
+router.use('/focus',focus);
 router.use('/manager',manager);
 
 module.exports = router;
