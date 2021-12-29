@@ -54,7 +54,9 @@
                         <%}%>   
                     </td>
                     <td><%=focusList[i].link%></td>
-                    <td class="text-center"><%=focusList[i].sort%></span></td>
+                    <td class="text-center">
+                        <span class="chSpanNum" data-id="<%=focusList[i]._id%>" data-model="Focus" data-field="sort"><%=focusList[i].sort%></span>
+                    </td>
                     <td class="text-center">
                         <% if(focusList[i].status==1){ %>
                             <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=focusList[i]._id%>" data-model="Focus" data-field="status" />

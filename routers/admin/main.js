@@ -30,7 +30,6 @@ router.get('/changeStatus', async (req,res)=>{
     // }
     // console.log(obj)
 
-
     let id = req.query.id;
     let model = req.query.model + "Model";
     let field = req.query.field;
@@ -49,6 +48,34 @@ router.get('/changeStatus', async (req,res)=>{
             message: '修改状态失败'
         });
     }
+})
+router.get('/changeNum', async (req,res)=>{
+
+    try {
+        let id = req.query.id;
+        let model = req.query.model + "Model";
+        let field = req.query.field;
+        let num = req.query.num;
+        let result = await appModel[model].find({"_id":id});
+        if (result.length > 0) {
+            let obj = {[field]:num};
+            await appModel[model].updateOne({"_id":id},obj);        
+            res.send({
+                success: true,
+                message: '修改状态成功'
+            });
+        }else{
+            res.send({
+                success: true,
+                message: '修数量失败'
+            });
+        }
+    } catch (error) {
+        res.send({
+            success: true,
+            message: '修数量失败'
+        });
+    }    
 })
 
 module.exports = router;
