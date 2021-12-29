@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+//引入配置文件
+const config = require("./config/config")
 // 引入外部模块
 const admin = require('./routers/admin');
 const index = require('./routers/index');
@@ -31,8 +33,11 @@ app.use(session({
 }))
 
 //配置外部路由模块
-app.use("/admin",admin)
-app.use("/api",api)
-app.use("/",index)
+app.use("/"+config.adminPath,admin);
+app.use("/api",api);
+app.use("/",index);
+
+//绑定全局模板变量
+app.locals.adminPath = config.adminPath;
 
 app.listen(3000, () => console.log(`Example app listening on port 3000!`))

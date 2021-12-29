@@ -26,7 +26,7 @@ router.post('/doAdd', async (req, res) => {
     // 2、验证数据是否合法
     if (username == "") {
         res.render("admin/public/error.html", {
-            "redirectUrl": "/admin/manager/add",
+            "redirectUrl": `/${req.app.locals.adminPath}/manager/add`,
             "message": "用户名不能为空"
         })
         return;
@@ -34,14 +34,14 @@ router.post('/doAdd', async (req, res) => {
     if (password.length < 6) {
         res.render('admin/public/error', {
             message: '密码长度不能小于6位',
-            redirectUrl: '/admin/manager/add'
+            redirectUrl: `/${req.app.locals.adminPath}/manager/add`
         })
         return;
     }
     if (password != rpassword) {
         res.render('admin/public/error', {
             message: "密码和确认密码不一致",
-            redirectUrl: '/admin/manager/add'
+            redirectUrl: `/${req.app.locals.adminPath}/manager/add`
         })
         return;
     }
@@ -52,7 +52,7 @@ router.post('/doAdd', async (req, res) => {
     if (result.length > 0) {
         res.render('admin/public/error', {
             message: "当前用户已经存在，请换一个用户",
-            redirectUrl: '/admin/manager/add'
+            redirectUrl: `/${req.app.locals.adminPath}/manager/add`
         })
         return;
     } else {
@@ -65,7 +65,7 @@ router.post('/doAdd', async (req, res) => {
             addtime: getUnix()
         })
         await addResult.save()
-        res.redirect("/admin/manager")
+        res.redirect(`/${req.app.locals.adminPath}/manager`)
     }
 })
 
@@ -95,14 +95,14 @@ router.post('/doEdit', async (req,res) => {
         if (password.length < 6) {
             res.render('admin/public/error', {
                 message: '密码长度不能小于6位',
-                redirectUrl: '/admin/manager/add'
+                redirectUrl: `/${req.app.locals.adminPath}/manager/add`
             })
             return;
         }
         if (password != rpassword) {
             res.render('admin/public/error', {
                 message: "密码和确认密码不一致",
-                redirectUrl: '/admin/manager/add'
+                redirectUrl: `/${req.app.locals.adminPath}/manager/add`
             })
             return;
         }
@@ -124,12 +124,12 @@ router.post('/doEdit', async (req,res) => {
     if (result.ok) {
         res.render('admin/public/success', {
             message: '管理员信息修改成功',
-            redirectUrl: '/admin/manager'
+            redirectUrl: `/${req.app.locals.adminPath}/manager`
         })
     }else{
         res.render('admin/public/error', {
             message: '管理员信息修改失败',
-            redirectUrl: '/admin/manager'
+            redirectUrl: `/${req.app.locals.adminPath}/manager`
         })
     }
 })
@@ -139,12 +139,12 @@ router.get('/delete', async (req,res)=>{
     if (result.ok) {
         res.render('admin/public/success.html', {
             message: "删除成功",
-            redirectUrl: '/admin/manager/'
+            redirectUrl: `/${req.app.locals.adminPath}/manager/`
         })        
     } else {
         res.render('admin/public/error.html', {
             message: "删除失败",
-            redirectUrl: '/admin/manager/'
+            redirectUrl: `/${req.app.locals.adminPath}/manager/`
         })
     }
 })

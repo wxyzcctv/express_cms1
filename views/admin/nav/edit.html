@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form">
-            <form action="/admin/nav/doEdit" method="post" id="form">
+            <form action="/<%=adminPath%>/nav/doEdit" method="post" id="form">
                 <input type="hidden" name="id" id="id" value="<%=nav._id%>" />
                 <ul>
                     <li> <span>导航名称: </span> <input type="text" name="title" value="<%=nav.title%>" /></li>

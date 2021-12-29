@@ -23,12 +23,12 @@ router.post("/doAdd", multer().single('focus_img'), async (req, res) => {
         let result = new FocusModel(Object.assign(req.body, { focus_img }))
         await result.save();
         res.render("admin/public/success.html", {
-            "redirectUrl": "/admin/focus",
+            "redirectUrl": `/${req.app.locals.adminPath}/focus`,
             "message": "增加轮播成功"
         })
     } catch (error) {
         res.render("admin/public/error.html", {
-            "redirectUrl": "/admin/focus/add",
+            "redirectUrl": `/${req.app.locals.adminPath}/focus/add`,
             "message": "增加轮播失败"
         })
     }
@@ -50,10 +50,10 @@ router.post("/doEdit", multer().single('focus_img'),  async (req, res) => {
         } else {
             await FocusModel.updateOne({ "_id": req.body.id }, req.body)
         }
-        res.redirect("/admin/focus");
+        res.redirect(`/${req.app.locals.adminPath}/focus`);
     } catch (error) {
         res.render("admin/public/success.html", {
-            "redirectUrl": "/admin/focus/edit?id=" + req.body.id,
+            "redirectUrl": `/${req.app.locals.adminPath}/focus/edit?id=` + req.body.id,
             "message": "修改数据失败"
         })
     }
@@ -70,13 +70,13 @@ router.get('/delete', async (req,res)=>{
             })
             res.render('admin/public/success.html', {
                 message: "删除成功",
-                redirectUrl: '/admin/focus/'
+                redirectUrl: `/${req.app.locals.adminPath}/focus/`
             })
         }
     } else {
         res.render('admin/public/error.html', {
             message: "删除失败",
-            redirectUrl: '/admin/focus/'
+            redirectUrl: `/${req.app.locals.adminPath}/focus/`
         })
     }
 })

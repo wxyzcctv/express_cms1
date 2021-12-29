@@ -47,7 +47,7 @@ router.post("/doLogin", async (req, res) => {
         req.session.userinfor = user[0];
         // 提示一下登录成功
         res.render("admin/public/success.html", {
-            "redirectUrl": "/admin",
+            "redirectUrl": `/${req.app.locals.adminPath}`,
             "message": "登录成功"
         }) 
     } else {
@@ -77,7 +77,7 @@ router.get('/verify', function (req, res) {
 // 退出请求
 router.get('/logOut',(req,res)=>{
     req.session.userinfor = null;
-    res.redirect('/admin/login')
+    res.redirect(`/${req.app.locals.adminPath}/login`)
 })
 
 module.exports = router

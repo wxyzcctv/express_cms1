@@ -21,12 +21,12 @@ router.post("/doAdd", async (req, res) => {
         var result = new NavModel(Object.assign(req.body, { add_time: getUnix() }))
         await result.save()
         res.render("admin/public/success.html", {
-            "redirectUrl": "/admin/nav",
+            "redirectUrl": `/${req.app.locals.adminPath}/nav`,
             "message": "增加导航成功"
         })
     } catch (error) {
         res.render("admin/public/error.html", {
-            "redirectUrl": "/admin/nav/add",
+            "redirectUrl": `/${req.app.locals.adminPath}/nav/add`,
             "message": "增加导航失败"
         })
     }    
@@ -44,12 +44,12 @@ router.post("/doEdit", async (req, res) => {
     try {
         let result = await NavModel.updateOne({"_id": req.body.id},req.body)
         res.render("admin/public/success.html", {
-            "redirectUrl": "/admin/nav",
+            "redirectUrl": `/${req.app.locals.adminPath}/nav`,
             "message": "修改导航成功"
         })
     } catch (error) {
         res.render("admin/public/error.html", {
-            "redirectUrl": "/admin/nav/add",
+            "redirectUrl": `/${req.app.locals.adminPath}/nav/add`,
             "message": "修改导航失败"
         })
     }
@@ -61,12 +61,12 @@ router.get('/delete', async (req,res)=>{
     if (result.ok) {
         res.render('admin/public/success.html', {
             message: "删除成功",
-            redirectUrl: '/admin/nav/'
+            redirectUrl: `/${req.app.locals.adminPath}/nav/`
         })        
     } else {
         res.render('admin/public/error.html', {
             message: "删除失败",
-            redirectUrl: '/admin/nav/'
+            redirectUrl: `/${req.app.locals.adminPath}/nav/`
         })
     }
 })
