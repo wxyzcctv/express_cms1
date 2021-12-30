@@ -40,9 +40,9 @@
                 <td><%= userList[i].email %></td>
                 <td>                    
                     <% if(userList[i].status==1){ %>
-                        <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Focus" data-field="status" />
+                        <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Manager" data-field="status" />
                     <%}else{%>
-                        <img src="/admin/images/no.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Focus" data-field="status" />
+                        <img src="/admin/images/no.gif" class="chStatus" data-id="<%=userList[i]._id%>" data-model="Manager" data-field="status" />
                     <%}%>  
                 </td>
                 <td class="text-center"><a href="/<%=adminPath%>/manager/edit?id=<%=userList[i]._id%>">修改</a>　　<a  class="delete" href="/<%=adminPath%>/manager/delete?id=<%=userList[i]._id%>">删除</a></td>
