@@ -3,11 +3,13 @@ const router = express.Router();
 const FocusModel = require('../../model/focusModel');
 const ManagerModel = require("../../model/managerModel");
 const NavModel = require('../../model/navModel');
+const ArticleCateModel = require('../../model/articleCateModel');
 
 const appModel = {
     FocusModel,
     ManagerModel,
-    NavModel
+    NavModel,
+    ArticleCateModel
 }
 
 router.get('/', async (req,res)=>{

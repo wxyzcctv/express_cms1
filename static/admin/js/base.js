@@ -3,7 +3,7 @@ $(function () {
 });
 
 var app = {
-
+    adminPath: 'admin_express',
 	init() {
 		this.toggleAside();
 		this.deleteConfirm();
@@ -30,12 +30,13 @@ var app = {
 		})
 	},
     changeStatus(){
+        let adminPath = this.adminPath;
         $('.chStatus').click(function () {
             let id = $(this).attr("data-id");
             let model = $(this).attr('data-model');
             let field = $(this).attr('data-field');
             let el = $(this);
-            $.get('/admin_express/changeStatus',{id,model,field},function (response) {
+            $.get('/'+adminPath+'/changeStatus',{id,model,field},function (response) {
                 if (response.success){
 					if(el.attr("src").indexOf("yes")!=-1){
 						el.attr("src", "/admin/images/no.gif");
@@ -89,7 +90,7 @@ var app = {
                 } else {
                     el.html(0);
                 }
-                $.get('/admin_express/changeNum',{id,model,field,num:inputNum},function (response) {
+                $.get('/'+adminPath+'/changeNum',{id,model,field,num:inputNum},function (response) {
                     if (!response.success){
                         console.log(response);
                     }

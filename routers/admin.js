@@ -25,6 +25,7 @@ const main = require('./admin/main');
 const login = require('./admin/login');
 const focus = require('./admin/focus');
 const manager = require('./admin/manager');
+const articleCate = require('./admin/articleCate');
 
 //挂载路由
 router.use('/',main);
@@ -33,5 +34,6 @@ router.use('/user',user);
 router.use('/login',login);
 router.use('/focus',focus);
 router.use('/manager',manager);
+router.use('/articleCate',articleCate);
 
 module.exports = router;
