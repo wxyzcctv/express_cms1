@@ -5,9 +5,41 @@ const ArticleModel = require('../../model/articleModel');
 const { multer } = require('../../model/tools')
 
 router.get('/', async (req,res)=>{
-    var articleList =await ArticleModel.find({})
+    let page = req.query.page || 1;
+    let pageSize = 2;
+    let json = {};
+
+    // let articleList = await ArticleModel.find({}).skip((page-1)*pageSize).limit(pageSize);
+
+    let articleList = await ArticleModel.aggregate([
+        {
+            $lookup: {
+                from: "article_cate",
+                localField: "cid",
+                foreignField: "_id",
+                as: "cate"
+            }
+        },
+        {
+            $match: json
+        },
+        {
+            $sort: { "add_time": -1 }
+        },
+        {
+            $skip: (page-1)*pageSize
+        },
+        {
+            $limit: pageSize
+        }
+    ])
+
+    let count = await ArticleModel.count({});
+
     res.render("admin/article/index.html",{
-        articleList
+        articleList,
+        totalPages: Math.ceil(count / pageSize),
+        page: page
     })
 })
 
