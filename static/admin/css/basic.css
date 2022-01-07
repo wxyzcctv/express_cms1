@@ -97,3 +97,19 @@ input[type=file]{
      color: red;
      padding-left: 70px;
  }
+
+.nav-tabs {
+    background: #eee;
+}
+.tab-content {
+    position: relative;
+    top: -12px;
+    background: #fff;
+    padding: 20px;
+}
+.articel_content{
+    border: 1px solid #eee;
+}
+.nav-tabs li{
+    padding: 0px 5px;
+}

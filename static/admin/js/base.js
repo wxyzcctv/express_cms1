@@ -71,6 +71,7 @@ var app = {
 				触发ajax请求				
 			})
 		*/
+        let adminPath = this.adminPath;
         $('.chSpanNum').click(function () {
             let id = $(this).attr("data-id");
             let model = $(this).attr('data-model');

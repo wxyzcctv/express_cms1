@@ -9,11 +9,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        增加内容
+        修改内容
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form articel_content">
-            <form action="/<%=adminPath%>/article/doAdd" method="post" enctype="multipart/form-data">
+            <form action="/<%=adminPath%>/article/doEdit" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%=articleList._id%>" />
                 <ul id="myTab" class="nav nav-tabs">
                     <li class="active">
                         <a href="#index" data-toggle="tab">基本设置</a>
@@ -32,37 +33,45 @@
                                 <span>所属分类: </span>
                                 <select name="cid" id="cid">
                                     <%for(let i=0;i<articleCateList.length;i++){%>
-                                        <option value="<%=articleCateList[i]._id%>"><%=articleCateList[i].title%></option>
+                                        <option value="<%=articleCateList[i]._id%>" <% if(articleList.cid.toString() === articleCateList[i]._id.toString()) {%> selected <%}%> ><%=articleCateList[i].title%></option>
                                         <%for(let j=0;j<articleCateList[i].items.length;j++){%>
-                                            <option value="<%=articleCateList[i].items[j]._id%>">　<%=articleCateList[i].items[j].title%></option>
+                                            <option value="<%=articleCateList[i].items[j]._id%>" <% if(articleList.cid.toString() === articleCateList[i].items[j]._id.toString()) {%> selected <%}%> >　<%=articleCateList[i].items[j].title%></option>
                                         <%}%>
                                     <%}%>
                                 </select>
                             </li>
-                            <li> <span>内容标题: </span> <input type="text" name="title" /></li>
-                            <li> <span>封面图:</span> <input type="file" name="article_img" /></li>
-                            <li> <span>作　　者: </span> <input type="text" name="author" /></li>
-                            <li> <span>排　　序: </span> <input type="text" name="sort" value="1000" /></li>
+                            <li> <span>内容标题: </span> <input type="text" name="title" value="<%=articleList.title%>" /></li>
+                            <li> <span>封面图:</span> 
+                                <input type="file" name="article_img" />
+                                <br>
+                                <% if(articleList.article_img){%>                                    
+                                    <img src="/<%=articleList.article_img%>" width="80" />
+                                <%}%>
+                            </li>
+                            <li> <span>作　　者: </span> <input type="text" name="author" value="<%=articleList.author%>" /></li>
+                            <li> <span>排　　序: </span> <input type="text" name="sort" value="<%=articleList.sort%>" /></li>
                             <li> <span>状　　态: </span> 
-                                <input type="radio" name="status" checked value="1" id="a" /> <label for="a">显示</label> 
-                                <input type="radio" name="status" value="0" id="b" /> <label for="b">隐藏</label> 
+                                <input type="radio" name="status" <% if (articleList.status==1){%> checked <%}%> value="1" id="a" />
+                                <label for="a">显示</label>
+                                <input type="radio" name="status" <% if (articleList.status==0){%> checked <%}%>  value="0" id="b" />
+                                <label for="b">隐藏</label>
                             </li>
                             <li> <span>加入推荐:</span>
-                                <input type="checkbox" value="1" name="is_best" /> 精品
-                                <input type="checkbox" value="1" name="is_hot" /> 热门
+                                <input type="checkbox" value="1" name="is_best" <% if (articleList.is_best==1){%> checked <%}%> /> 精品
+                                <input type="checkbox" value="1" name="is_hot" <% if (articleList.is_hot==1){%> checked <%}%> /> 热门
                             </li>                            
                         </ul>
                     </div>
                     <div class="tab-pane fade" id="info">
-                        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                        <textarea name="content" id="content" cols="30" rows="10"><%=articleList.content%></textarea>
                     </div>
                     <div class="tab-pane fade" id="seo">
                         <ul>
                             <li> <span>关键词:</span> 
-                                <input type="text" name="keywords" />
+                                <input type="text" name="keywords" value="<%=articleList.keywords%>" />
                             </li>
                             <li> <span>Seo描述:</span> 
-                                <textarea name="description" id="description" cols="84" rows="4"></textarea>
+                                <textarea name="description" id="description" cols="84" rows="4"><%=articleList.description%></textarea>
                             </li>
                         </ul>
                     </div>

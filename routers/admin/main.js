@@ -4,12 +4,14 @@ const FocusModel = require('../../model/focusModel');
 const ManagerModel = require("../../model/managerModel");
 const NavModel = require('../../model/navModel');
 const ArticleCateModel = require('../../model/articleCateModel');
+const ArticleModel = require('../../model/articleModel');
 
 const appModel = {
     FocusModel,
     ManagerModel,
     NavModel,
-    ArticleCateModel
+    ArticleCateModel,
+    ArticleModel
 }
 
 router.get('/', async (req,res)=>{
