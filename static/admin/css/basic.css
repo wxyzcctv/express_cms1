@@ -113,3 +113,6 @@ input[type=file]{
 .nav-tabs li{
     padding: 0px 5px;
 }
+.pic{
+    width: 80px;
+}

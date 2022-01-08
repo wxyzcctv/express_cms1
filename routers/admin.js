@@ -26,6 +26,7 @@ const login = require('./admin/login');
 const focus = require('./admin/focus');
 const manager = require('./admin/manager');
 const article = require('./admin/article');
+const setting = require('./admin/setting');
 const articleCate = require('./admin/articleCate');
 
 //挂载路由
@@ -36,6 +37,7 @@ router.use('/login',login);
 router.use('/focus',focus);
 router.use('/article',article);
 router.use('/manager',manager);
+router.use('/setting',setting);
 router.use('/articleCate',articleCate);
 
 
