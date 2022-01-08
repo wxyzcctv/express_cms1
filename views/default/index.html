@@ -9,29 +9,20 @@
 
 			<!--轮播图-->
 			<div id="banner-wrapper">
-
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<img src="/default/images/banner2.jpg" alt="" />
-						</div>
-						<div class="swiper-slide">
-
-							<img src="/default/images/banner1.jpg" alt="" />
-						</div>
-						
-						<div class="swiper-slide">
-							<img src="/default/images/banner3.jpg" alt="" />
-						</div>
-
+                        <%for(let i = 0; i < focusList.length; i++){%>
+                            <div class="swiper-slide">
+                                <a href="<%=focusList[i].link%>" target="_blank" rel="noopener noreferrer">
+                                    <img src="<%=focusList[i].focus_img%>" alt="<%=focusList[i].title%>" />
+                                </a>
+                            </div>
+                        <%}%>
 					</div>
 					<div class="swiper-pagination"></div>
-
 					<div class="swiper-button-prev swiper-button-white"></div>
 					<div class="swiper-button-next swiper-button-white"></div>
-
 				</div>
-
 			</div>
 
 			<!--关于-->
@@ -290,6 +281,7 @@
 		<script>
 			var mySwiper = new Swiper('.swiper-container', {
 				autoplay: true,
+                loop: true,
 				pagination: {
 					el: '.swiper-pagination',
 				},
