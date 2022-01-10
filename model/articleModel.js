@@ -2,6 +2,7 @@ const mongoose = require('./core');
 let Schema = mongoose.Schema;
 const ArticleSchema = mongoose.Schema({
     title: { type: String },
+    link: { type: String },
     cid: {
         type: Schema.Types.ObjectId 
     },

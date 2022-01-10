@@ -74,32 +74,40 @@ router.post("/doEdit", async (req, res) => {
 
 router.get('/delete', async (req,res)=>{
     let id = req.query.id;
-    let result = await ArticleCateModel.deleteOne({"_id":id});    
-    if (result.ok) {
-        res.render('admin/public/success.html', {
-            message: "删除成功",
-            redirectUrl: `/${req.app.locals.adminPath}/articleCate/`
-        })        
-    } else {
-        res.render('admin/public/error.html', {
-            message: "删除失败",
-            redirectUrl: `/${req.app.locals.adminPath}/articleCate/`
-        })
-    }
-    // 考虑有子分类的情况不让删
-
-    // let subReuslt=await ArticleCateModel.find({"pid":mongoose.Types.ObjectId(id)});
-    // if(subReuslt.length>0){
-    //     res.render("admin/public/error.html", {
-    //         "redirectUrl": `/${req.app.locals.adminPath}/articleCate`,
-    //         "message": "当前分类没法删除，请删除下面的子分类后重试"
-    //     })
-    // }else{
-    //     await ArticleCateModel.deleteOne({ "_id": id });
-    //     res.render("admin/public/success.html", {
-    //         "redirectUrl": `/${req.app.locals.adminPath}/articleCate`,
-    //         "message": "删除数据成功"
+    // let result = await ArticleCateModel.deleteOne({"_id":id});    
+    // if (result.ok) {
+    //     res.render('admin/public/success.html', {
+    //         message: "删除成功",
+    //         redirectUrl: `/${req.app.locals.adminPath}/articleCate/`
+    //     })        
+    // } else {
+    //     res.render('admin/public/error.html', {
+    //         message: "删除失败",
+    //         redirectUrl: `/${req.app.locals.adminPath}/articleCate/`
     //     })
     // }
+    // 考虑有子分类的情况不让删,分类下面有文章不让删除
+
+    let subReuslt = await ArticleCateModel.find({ "pid": mongoose.Types.ObjectId(id)});
+    if (subReuslt.length > 0) {
+        res.render("admin/public/error.html", {
+            "redirectUrl": `/${req.app.locals.adminPath}/articleCate`,
+            "message": "当前分类没法删除，请删除下面的子分类后重试"
+        })
+    } else {
+        let subArticelReuslt = await ArticleModel.find({ "cid": mongoose.Types.ObjectId(id)});
+        if (subArticelReuslt.length > 0) {
+            res.render("admin/public/error.html", {
+                "redirectUrl": `/${req.app.locals.adminPath}/articleCate`,
+                "message": "当前分类下面有文章信息没法删除，删除文章后重试"
+            })
+        } else {
+            await ArticleCateModel.deleteOne({ "_id": id });
+            res.render("admin/public/success.html", {
+                "redirectUrl": `/${req.app.locals.adminPath}/articleCate`,
+                "message": "删除数据成功"
+            })
+        }
+    }
 })
 module.exports = router

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ArticleCateModel = require('../../model/articleCateModel');
 const ArticleModel = require('../../model/articleModel');
-const { multer } = require('../../model/tools')
+const { multer,getUnix } = require('../../model/tools')
 
 router.get('/', async (req,res)=>{
     let page = req.query.page || 1;
@@ -67,7 +67,7 @@ router.get('/add', async (req,res)=>{
 
 router.post('/doAdd',multer().single('article_img'), async (req,res)=>{
     let imgSrc = req.file ? req.file.path.substr(7) : "";
-    let result = new ArticleModel(Object.assign(req.body, { "article_img": imgSrc }))
+    let result = new ArticleModel(Object.assign(req.body, { "article_img": imgSrc, 'add_time': getUnix() }))
     await result.save()
     res.redirect(`/${req.app.locals.adminPath}/article`);
 })

@@ -41,6 +41,7 @@
                                 </select>
                             </li>
                             <li> <span>内容标题: </span> <input type="text" name="title" value="<%=articleList.title%>" /></li>
+                            <li> <span>跳转地址: </span> <input type="text" name="link" value="<%=articleList.link%>" /> <i>说明：不为空点击文章将跳转到此地址</i></li>
                             <li> <span>封面图:</span> 
                                 <input type="file" name="article_img" />
                                 <br>
@@ -50,7 +51,7 @@
                             </li>
                             <li> <span>作　　者: </span> <input type="text" name="author" value="<%=articleList.author%>" /></li>
                             <li> <span>排　　序: </span> <input type="text" name="sort" value="<%=articleList.sort%>" /></li>
-                            <li> <span>状　　态: </span> 
+                            <li> <span>状　　态: </span>
                                 <input type="radio" name="status" <% if (articleList.status==1){%> checked <%}%> value="1" id="a" />
                                 <label for="a">显示</label>
                                 <input type="radio" name="status" <% if (articleList.status==0){%> checked <%}%>  value="0" id="b" />

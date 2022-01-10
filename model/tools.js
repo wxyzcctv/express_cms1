@@ -37,6 +37,10 @@ let tools = {
     getUnix(){
         let time = new Date();
         return time.getTime()
+    },
+    formatTime(unixStr){
+        let day=sd.format(unixStr, 'YYYY-MM-DD');
+        return day
     }
 }
 
