@@ -8,6 +8,11 @@ router.get('/', async (req,res)=>{
     let page = req.query.page || 1;
     let pageSize = 15;
     let json = {};
+    let keywords = req.query.keywords;
+
+    if(keywords){
+        json = Object.assign(json,{'title': { $regex: new RegExp(keywords)}})
+    }
 
     // let articleList = await ArticleModel.find({}).skip((page-1)*pageSize).limit(pageSize);
 
@@ -34,12 +39,13 @@ router.get('/', async (req,res)=>{
         }
     ])
 
-    let count = await ArticleModel.count({});
+    let count = await ArticleModel.count(json);
 
     res.render("admin/article/index.html",{
         articleList,
         totalPages: Math.ceil(count / pageSize),
-        page: page
+        page: page,
+        keywords
     })
 })
 

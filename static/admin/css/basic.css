@@ -116,3 +116,14 @@ input[type=file]{
 .pic{
     width: 80px;
 }
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
+.search{
+    width: 400px;
+    height: 32px;
+    line-height: 32px;
+}
