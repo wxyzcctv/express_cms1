@@ -41,6 +41,14 @@ let tools = {
     formatTime(unixStr){
         let day=sd.format(unixStr, 'YYYY-MM-DD');
         return day
+    },
+    unixToDay(unixStr){
+        let day=sd.format(unixStr, 'DD');
+        return day
+    },
+    unixToYearAndMonth(unixStr){
+        let day=sd.format(unixStr, 'YYYY-MM');
+        return day
     }
 }
 

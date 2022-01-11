@@ -6,7 +6,7 @@ const { multer,getUnix } = require('../../model/tools')
 
 router.get('/', async (req,res)=>{
     let page = req.query.page || 1;
-    let pageSize = 2;
+    let pageSize = 15;
     let json = {};
 
     // let articleList = await ArticleModel.find({}).skip((page-1)*pageSize).limit(pageSize);
@@ -27,7 +27,7 @@ router.get('/', async (req,res)=>{
             $sort: { "add_time": -1 }
         },
         {
-            $skip: (page-1)*pageSize
+            $skip: (page - 1) * pageSize
         },
         {
             $limit: pageSize

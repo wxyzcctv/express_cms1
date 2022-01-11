@@ -13,6 +13,7 @@
                 <th>分类</th>
                 <th>图片</th>
                 <th class="text-center">排序</th>
+                <th class="text-center">推荐</th>
                 <th class="text-center">状态</th>
                 <th class="text-center">操作</th>
             </tr>
@@ -30,6 +31,15 @@
                     <td class="text-center">                        
                         <span class="chSpanNum" data-id="<%=articleList[i]._id%>" data-model="Article" data-field="sort"><%=articleList[i].sort%></span>
                     </td>
+                    <td align="center">
+                        <%if(articleList[i].is_best==1){%>
+                        <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=articleList[i]._id%>" data-model="Article"
+                            data-field="is_best" />
+                        <%}else{%>
+                        <img src="/admin/images/no.gif" class="chStatus" data-id="<%=articleList[i]._id%>" data-model="Article"
+                            data-field="is_best" />
+                        <%}%>
+                     </td>
                     <td align="center">
                         <%if(articleList[i].status==1){%>
                             <img src="/admin/images/yes.gif" class="chStatus" data-id="<%=articleList[i]._id%>" data-model="Article" data-field="status" />
@@ -58,8 +68,6 @@
             if(type=="change"){
                 location.href="/<%=adminPath%>/article?page="+num;
             }
-            console.log(type);    
-           console.log('当前第' + num + '页')
         }
     })
 </script>
