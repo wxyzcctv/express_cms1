@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const cors = require('cors');
 //引入配置文件
 const config = require("./config/config")
 // 引入外部模块
@@ -31,6 +32,8 @@ app.use(session({
     },
     rolling:true,  //在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
 }))
+// 使用跨域配置中间件允许跨域
+app.use(cors())
 
 //配置外部路由模块
 app.use("/"+config.adminPath,admin);
