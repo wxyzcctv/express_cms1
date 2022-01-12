@@ -5,9 +5,10 @@ const FocusModel = require('../model/focusModel');
 const NavModel = require('../model/navModel');
 const ArticleModel = require('../model/articleModel');
 const ArticleCateModel = require('../model/articleCateModel');
+const SettingModel = require('../model/settingModel');
 
 const mongoose = require('../model/core');
-const { formatTime,unixToDay,unixToYearAndMonth } = require('../model/tools');
+const { formatTime, unixToDay, unixToYearAndMonth } = require('../model/tools');
 
 router.use( async (req,res,next)=>{
     let pathName = url.parse(req.url).pathname;
@@ -18,6 +19,9 @@ router.use( async (req,res,next)=>{
     req.app.locals.formatTime = formatTime;
     req.app.locals.unixToDay = unixToDay;
     req.app.locals.unixToYearAndMonth = unixToYearAndMonth;
+    req.app.locals.title="2020北京车展";
+    req.app.locals.keywords="2020北京车展";
+    req.app.locals.description="2022（第十六届）北京国际汽车展览会（Auto China 2022）将在北京中国国际展览中心新馆和中国国际展览中心老馆举行。";
     next();
 })
 
@@ -27,11 +31,17 @@ router.get("/", async (req,res)=>{
     // 展会新闻
     let topNewsList = await ArticleModel.find({'cid': mongoose.Types.ObjectId('5f718f951dc45e2698739df3')}, 'title').limit(4).sort({'sort':-1});
     // 推荐新闻
-    let bestNewsList = await ArticleModel.find({'is_best':1}).limit(4).sort({'sort':-1});    
+    let bestNewsList = await ArticleModel.find({'is_best':1}).limit(4).sort({'sort':-1});
+    // 获取系统信息
+    let settingResult = await SettingModel.find({});
+
     res.render("default/index.html",{
         focusList,
         topNewsList,
-        bestNewsList
+        bestNewsList,
+        title: settingResult[0].site_title,
+        keywords: settingResult[0].site_keywords,
+        description: settingResult[0].site_description
     })
  })
  
@@ -133,6 +143,9 @@ router.get("/", async (req,res)=>{
         list5,
         list6
     })
+ })
+ router.get("/contact.html", (req, res) => {
+    res.render("default/contact.html")
  })
  router.get("/content_:id.html", async (req,res)=>{
     let id = req.params.id;
